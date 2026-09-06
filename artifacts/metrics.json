@@ -1,0 +1,340 @@
+{
+  "source": "local:online_retail_II.xlsx",
+  "subsample_note": null,
+  "n_invoices": 36604,
+  "split_counts": {
+    "train": 25986,
+    "val": 3642,
+    "burnin": 3558,
+    "test": 3418
+  },
+  "data": {
+    "source": "local:online_retail_II.xlsx",
+    "clean": {
+      "n_raw": 1067371,
+      "n_price_nonpos_dropped": 6207,
+      "n_non_product_dropped": 5986,
+      "n_after_product_filter": 1061164,
+      "n_guest_lines": 234597,
+      "guest_line_drop_rate": 0.22232931315853818,
+      "n_modeled_lines": 820581,
+      "n_unique_customers": 5875,
+      "n_after_price_stock": 1055178
+    },
+    "match": {
+      "n_cancel_lines": 17937,
+      "n_matched_cancel_lines": 15700,
+      "n_unmatched_cancel_lines": 2237,
+      "matched_qty": 454305.0,
+      "unmatched_qty": 23799.0,
+      "unmatched_cancel_line_rate": 0.12471427774990243
+    },
+    "n_sales_invoices": 36604,
+    "y_real_rate": 0.008469019779259098,
+    "partial_return_rate": 0.17686591629330128,
+    "n_y_real_pos": 310
+  },
+  "realized_scenario_rates": {
+    "overall": 0.21158889738826359,
+    "prepaid": 0.06995944380069524,
+    "cod": 0.2973767327601334,
+    "fashion_cod": 0.35137211855104283,
+    "tier3_cod": 0.3678236769169856,
+    "metro_cod": 0.22845971233068008,
+    "cod_share": 0.6227734673806141
+  },
+  "overlay": {
+    "b0": -3.7600000000000002,
+    "b_cod": 1.9100000000000001,
+    "formula": "logit = b0 + b_cod*COD + b_pin*pin_prior + b_fashion*fashion + b_festive*festive + b_hist*past_return_rate + 0.4*z_customer + 0.8*eps",
+    "unobserved": [
+      "z_customer",
+      "eps"
+    ],
+    "festive_proxy": "UK Nov\u2013Dec invoice dates used as India's festive-spike proxy"
+  },
+  "eval_a": {
+    "precision": 0.043859649122807015,
+    "recall": 0.2631578947368421,
+    "f1": 0.07518796992481203,
+    "threshold": 0.04795264259933034,
+    "confusion": {
+      "tp": 5,
+      "fp": 109,
+      "tn": 3290,
+      "fn": 14
+    },
+    "average_precision": 0.03668288165108196,
+    "roc_auc": 0.8312506774438302,
+    "ece": 0.0037829713999587905,
+    "prevalence": 0.005558806319485079,
+    "n_test": 3418,
+    "baseline_logistic": {
+      "precision": 0.0064037748567576675,
+      "recall": 1.0,
+      "f1": 0.012726054922973878,
+      "threshold": 0.04795264259933034,
+      "confusion": {
+        "tp": 19,
+        "fp": 2948,
+        "tn": 451,
+        "fn": 0
+      },
+      "average_precision": 0.08184878344983652,
+      "roc_auc": 0.859602669515802,
+      "ece": 0.3492416431032667,
+      "prevalence": 0.005558806319485079,
+      "n_test": 3418
+    },
+    "calibration": {
+      "ece_raw": 0.3943622713148561,
+      "ece_platt": 1.477567390490743e-05,
+      "ece_isotonic": null,
+      "method": "platt_sigmoid"
+    },
+    "xgb": {
+      "best_params": {
+        "max_depth": 4,
+        "min_child_weight": 5,
+        "subsample": 0.8,
+        "colsample_bytree": 0.8,
+        "reg_lambda": 2.0,
+        "reg_alpha": 0.0,
+        "gamma": 0.5
+      },
+      "selection_metric": "val_average_precision",
+      "scale_pos_weight": 115.52914798206278,
+      "n_train": 25986,
+      "train_prevalence": 0.008581543908258294,
+      "val_average_precision": 0.08987791668548104,
+      "val_logloss": 0.5333031208397793,
+      "best_iteration": 14
+    },
+    "cost_note": "Eval A uses proxy costs C_fn=40.0, C_fp=1 (not INR COD economics).",
+    "logistic_top_coefs": [
+      {
+        "feature": "n_lines",
+        "coef": -1.7373865090028702
+      },
+      {
+        "feature": "amount_gbp",
+        "coef": 0.544326207274951
+      },
+      {
+        "feature": "log_amount_gbp",
+        "coef": -0.4069971282487544
+      },
+      {
+        "feature": "first_time_flag",
+        "coef": 0.2556320499635242
+      },
+      {
+        "feature": "prior_return_rate",
+        "coef": 0.22166908706481112
+      },
+      {
+        "feature": "price_tier_high",
+        "coef": 0.1740392054495421
+      },
+      {
+        "feature": "is_uk",
+        "coef": -0.17076012847927316
+      },
+      {
+        "feature": "price_tier_mid",
+        "coef": -0.11385385453253687
+      },
+      {
+        "feature": "account_age_days",
+        "coef": 0.10383037636044791
+      },
+      {
+        "feature": "fashion_return_rate",
+        "coef": 0.09663121312214616
+      },
+      {
+        "feature": "is_fashion_kw",
+        "coef": -0.09663121312214536
+      },
+      {
+        "feature": "dow",
+        "coef": 0.08348317356573239
+      }
+    ]
+  },
+  "eval_b": {
+    "precision": 0.3640922768304915,
+    "recall": 0.8335246842709529,
+    "f1": 0.506806282722513,
+    "threshold": 0.20084661478918842,
+    "confusion": {
+      "tp": 726,
+      "fp": 1268,
+      "tn": 1279,
+      "fn": 145
+    },
+    "average_precision": 0.4682673052861315,
+    "roc_auc": 0.7291992064683379,
+    "ece": 0.021719778692370052,
+    "prevalence": 0.2548273844353423,
+    "n_test": 3418,
+    "tag": "[SCENARIO]",
+    "warning": "Eval B labels are simulated India/COD RTO, not observed UCI events.",
+    "baseline_logistic": {
+      "precision": 0.28202548625083834,
+      "recall": 0.965556831228473,
+      "f1": 0.436542953542694,
+      "threshold": 0.20084661478918842,
+      "confusion": {
+        "tp": 841,
+        "fp": 2141,
+        "tn": 406,
+        "fn": 30
+      },
+      "average_precision": 0.470158326641773,
+      "roc_auc": 0.7273332530966622,
+      "ece": 0.25352768398773845,
+      "prevalence": 0.2548273844353423,
+      "n_test": 3418,
+      "tag": "[SCENARIO]",
+      "warning": "Eval B labels are simulated India/COD RTO, not observed UCI events."
+    },
+    "calibration": {
+      "ece_raw": 0.23163461354180134,
+      "ece_platt": 0.012218849733006694,
+      "ece_isotonic": null,
+      "method": "platt_sigmoid"
+    },
+    "xgb": {
+      "best_params": {
+        "max_depth": 3,
+        "min_child_weight": 1,
+        "subsample": 0.8,
+        "colsample_bytree": 0.8,
+        "reg_lambda": 1.0,
+        "reg_alpha": 0.0,
+        "gamma": 0.0
+      },
+      "selection_metric": "val_average_precision",
+      "scale_pos_weight": 3.849038999813398,
+      "n_train": 25986,
+      "train_prevalence": 0.20622642961594706,
+      "val_average_precision": 0.41117453679255317,
+      "val_logloss": 0.5787249274717299,
+      "best_iteration": 95
+    },
+    "t_med": 0.10042330739459421,
+    "mean_c_fp_inr": 60.083807782328854,
+    "c_fn_inr": 210.0,
+    "fp_cost_sensitivity": {
+      "0.5x FP": {
+        "t_star": 0.08823013161898367,
+        "min_cost": 66217.9085625,
+        "fp_scale": 0.5
+      },
+      "1.0x FP": {
+        "t_star": 0.20084661478918842,
+        "min_cost": 109963.70325,
+        "fp_scale": 1.0
+      },
+      "2.0x FP": {
+        "t_star": 0.3776514463591536,
+        "min_cost": 155093.67225,
+        "fp_scale": 2.0
+      }
+    },
+    "verification_step_assumption": {
+      "expected_cost_with_verify_step": 110506.20325,
+      "n_medium": 280,
+      "n_high": 1994,
+      "verify_cost_inr": 10.0,
+      "assumed_rto_reduction_on_medium": 0.25,
+      "fn_low": 102,
+      "med_pos": 43,
+      "med_neg": 237,
+      "high_fp": 1268,
+      "note": "Verification lift is an assumption, not a measured causal effect."
+    },
+    "fp_rate_by_pincode_tier": {
+      "metro": {
+        "n": 1281,
+        "n_neg": 1050,
+        "fp": 403,
+        "fp_rate": 0.3838095238095238,
+        "flag_rate": 0.4449648711943794
+      },
+      "tier2": {
+        "n": 1133,
+        "n_neg": 853,
+        "fp": 453,
+        "fp_rate": 0.5310668229777257,
+        "flag_rate": 0.6072374227714034
+      },
+      "tier3": {
+        "n": 1004,
+        "n_neg": 644,
+        "fp": 412,
+        "fp_rate": 0.639751552795031,
+        "flag_rate": 0.7330677290836654
+      }
+    },
+    "fairness_note": "Fairness call-out: tier3 FP rate (0.640) is much higher than metro (0.384). PIN is for extra verification routing, never a ship-ban.",
+    "logistic_top_coefs": [
+      {
+        "feature": "is_cod",
+        "coef": 0.9661344647939833
+      },
+      {
+        "feature": "prior_return_rate",
+        "coef": 0.3269570730040481
+      },
+      {
+        "feature": "days_to_expected_delivery",
+        "coef": -0.16677945210744277
+      },
+      {
+        "feature": "prior_return_count",
+        "coef": 0.15659254970479802
+      },
+      {
+        "feature": "is_festive",
+        "coef": 0.1523365341940476
+      },
+      {
+        "feature": "prior_order_count",
+        "coef": -0.14934716078414018
+      },
+      {
+        "feature": "log_amount_inr",
+        "coef": 0.11357616320847269
+      },
+      {
+        "feature": "pin_rto_rate",
+        "coef": 0.09810967938330843
+      },
+      {
+        "feature": "category_rto_rate",
+        "coef": 0.08758947610857838
+      },
+      {
+        "feature": "is_fashion",
+        "coef": 0.087575110691347
+      },
+      {
+        "feature": "product_category_fashion",
+        "coef": 0.087575110691347
+      },
+      {
+        "feature": "pincode_tier_tier3",
+        "coef": 0.08743931028594265
+      }
+    ]
+  },
+  "honesty": {
+    "eval_a": "real UCI matched-cancellation labels (y_real)",
+    "eval_b": "[SCENARIO] simulated India/COD RTO labels (y_rto); do not blend with Eval A",
+    "defense_only": true
+  },
+  "random_kfold": false,
+  "smote": false
+}

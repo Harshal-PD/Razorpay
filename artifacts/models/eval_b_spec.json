@@ -1,0 +1,47 @@
+{
+  "t_star": 0.20084661478918842,
+  "t_med": 0.10042330739459421,
+  "num_cols": [
+    "amount_inr",
+    "log_amount_inr",
+    "qty",
+    "n_lines",
+    "is_cod",
+    "account_age_days",
+    "prior_order_count",
+    "prior_return_count",
+    "prior_return_rate",
+    "first_time_flag",
+    "first_time_cod_flag",
+    "category_rto_rate",
+    "is_fashion",
+    "pin_rto_rate",
+    "cod_x_pin_rto",
+    "cod_x_fashion",
+    "cod_x_festive",
+    "cod_x_prior_return",
+    "days_to_expected_delivery",
+    "dow",
+    "is_festive"
+  ],
+  "cat_cols": [
+    "price_tier",
+    "product_category",
+    "pincode_tier",
+    "delivery_zone"
+  ],
+  "pin_rto_rate": {
+    "metro": 0.14438388372341562,
+    "tier2": 0.201567028013309,
+    "tier3": 0.2913019693654267
+  },
+  "category_rto_rate": {
+    "beauty": 0.17742249951257555,
+    "electronics": 0.17737722048066876,
+    "fashion": 0.24869413813116656,
+    "home": 0.17919593483784188
+  },
+  "pin_rto_rate_global": 0.20622642961594706,
+  "category_rto_rate_global": 0.20622642961594706,
+  "calibration_method": "platt_sigmoid"
+}

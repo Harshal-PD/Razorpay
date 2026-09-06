@@ -1,0 +1,26 @@
+{
+  "source": "local:online_retail_II.xlsx",
+  "clean": {
+    "n_raw": 1067371,
+    "n_price_nonpos_dropped": 6207,
+    "n_non_product_dropped": 5986,
+    "n_after_product_filter": 1061164,
+    "n_guest_lines": 234597,
+    "guest_line_drop_rate": 0.22232931315853818,
+    "n_modeled_lines": 820581,
+    "n_unique_customers": 5875,
+    "n_after_price_stock": 1055178
+  },
+  "match": {
+    "n_cancel_lines": 17937,
+    "n_matched_cancel_lines": 15700,
+    "n_unmatched_cancel_lines": 2237,
+    "matched_qty": 454305.0,
+    "unmatched_qty": 23799.0,
+    "unmatched_cancel_line_rate": 0.12471427774990243
+  },
+  "n_sales_invoices": 36604,
+  "y_real_rate": 0.008469019779259098,
+  "partial_return_rate": 0.17686591629330128,
+  "n_y_real_pos": 310
+}
